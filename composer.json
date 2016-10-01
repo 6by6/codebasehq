@@ -1,0 +1,22 @@
+{
+    "name": "6by6/codebasehq",
+    "description": "PHP API for CodebaseHq",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Daniel Ness",
+            "email": "daniel@sixbysix.co.uk"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "jms/serializer": "^1.3",
+        "guzzlehttp/guzzle": "^6.2"
+    },
+    "autoload" : {
+        "psr-4" : {
+            "SixBySix\\CodebaseHq\\" : ""
+        }
+    }
+}
