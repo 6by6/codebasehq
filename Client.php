@@ -72,10 +72,75 @@ class Client
         self::$username = $username;
     }
 
-
-    protected static function get($resource)
+    public static function get($resource, array $opts = [])
     {
+        $opts = ['query' => $opts];
+        $opts = static::prepareRequestOpts($opts);
 
+        /** @var Response $response */
+        $response = self::http()->get($resource, $opts);
+
+        $response = json_decode("{$response->getBody()}", $assoc = true);
+
+        if (isset($response['count']) && $response['count'] == 0) {
+            return [];
+        }
+
+        return $response;
+    }
+
+    public static function post($resource, array $body = [], array $opts = [])
+    {
+        $opts['form_params'] = $body;
+        $opts = static::prepareRequestOpts($opts);
+
+        /** @var ResponseInterface $response */
+        $response = self::http()->post($resource, $opts);
+
+        /** @var string $body */
+        $body = (string) $response->getBody();
+
+        /** @var array $json */
+        $json = json_decode($body, $assoc = true);
+
+        return $json;
+    }
+
+    public static function put($resource, array $body = [], array $opts = [])
+    {
+        $opts['form_params'] = $body;
+        $opts = static::prepareRequestOpts($opts);
+
+        /** @var ResponseInterface $response */
+        $response = self::http()->put($resource, $opts);
+
+        /** @var string $body */
+        $body = (string) $response->getBody();
+
+        /** @var array $json */
+        $json = json_decode($body, $assoc = true);
+
+        return $json;
+    }
+
+    public static function delete($resource)
+    {
+        /** @var array $opts */
+        $opts = static::prepareRequestOpts([]);
+
+        self::http()->delete($resource, $opts);
+    }
+
+    protected static function prepareRequestOpts(array $opts = [])
+    {
+        $opts['headers'] = [
+            'User-Agent' => 'Float API for PHP (daniel@sixbysix.co.uk)',
+            'Content-Type' => 'application/x-www-form-urlencoded',
+            'Accept' => 'application/json',
+            'Authorization' => sprintf('Bearer %s', self::getApiKey()),
+        ];
+
+        return $opts;
     }
 
     protected static function http()
