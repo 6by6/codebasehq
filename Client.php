@@ -10,7 +10,7 @@ use GuzzleHttp\Client as GuzzleClient;
  */
 class Client
 {
-    const DOMAIN = 'http(s)://api3.codebasehq.com';
+    const DOMAIN = 'https://api3.codebasehq.com';
 
     /** @var  GuzzleClient */
     protected static $http;
@@ -72,6 +72,20 @@ class Client
         self::$username = $username;
     }
 
+    public static function init($accountName, $username, $apiKey)
+    {
+        static::setAccountName($accountName);
+        static::setUsername($username);
+        static::setApiKey($apiKey);
+    }
+
+    /**
+     * GET method
+     *
+     * @param $resource
+     * @param array $opts
+     * @return \SimpleXMLElement
+     */
     public static function get($resource, array $opts = [])
     {
         $opts = ['query' => $opts];
@@ -80,76 +94,49 @@ class Client
         /** @var Response $response */
         $response = self::http()->get($resource, $opts);
 
-        $response = json_decode("{$response->getBody()}", $assoc = true);
-
-        if (isset($response['count']) && $response['count'] == 0) {
-            return [];
-        }
-
-        return $response;
-    }
-
-    public static function post($resource, array $body = [], array $opts = [])
-    {
-        $opts['form_params'] = $body;
-        $opts = static::prepareRequestOpts($opts);
-
-        /** @var ResponseInterface $response */
-        $response = self::http()->post($resource, $opts);
-
         /** @var string $body */
         $body = (string) $response->getBody();
 
-        /** @var array $json */
-        $json = json_decode($body, $assoc = true);
+        /** @var \SimpleXMLElement $xml */
+        $xml = simplexml_load_string($body);
 
-        return $json;
+        return $xml;
     }
 
-    public static function put($resource, array $body = [], array $opts = [])
-    {
-        $opts['form_params'] = $body;
-        $opts = static::prepareRequestOpts($opts);
-
-        /** @var ResponseInterface $response */
-        $response = self::http()->put($resource, $opts);
-
-        /** @var string $body */
-        $body = (string) $response->getBody();
-
-        /** @var array $json */
-        $json = json_decode($body, $assoc = true);
-
-        return $json;
-    }
-
-    public static function delete($resource)
-    {
-        /** @var array $opts */
-        $opts = static::prepareRequestOpts([]);
-
-        self::http()->delete($resource, $opts);
-    }
-
+    /**
+     * Set auth + headers for each request
+     *
+     * @param array $opts
+     * @return array
+     */
     protected static function prepareRequestOpts(array $opts = [])
     {
+        $opts['auth'] = [
+            static::getAccountName() . "/" . static::getUsername(),
+            static::getApiKey(),
+        ];
+
         $opts['headers'] = [
-            'User-Agent' => 'Float API for PHP (daniel@sixbysix.co.uk)',
-            'Content-Type' => 'application/x-www-form-urlencoded',
-            'Accept' => 'application/json',
-            'Authorization' => sprintf('Bearer %s', self::getApiKey()),
+            'User-Agent' => 'CodebaseHq API for PHP (daniel@sixbysix.co.uk)',
+            'Content-Type' => 'application/xml',
+            'Accept' => 'application/xml',
         ];
 
         return $opts;
     }
 
+    /**
+     * Getter for http client
+     *
+     * @return GuzzleClient
+     */
     protected static function http()
     {
-       if (!static::$http) {
-           static::$http = new GuzzleClient([
-               'base_url' => static::DOMAIN,
-           ]);
-       }
+        if (!static::$http) {
+            static::$http = new GuzzleClient([
+                'base_uri' => static::DOMAIN,
+            ]);
+        }
 
         return static::$http;
     }
