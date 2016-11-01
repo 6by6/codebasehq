@@ -4,22 +4,37 @@ namespace SixBySix\CodebaseHq\Entity\Traits;
 
 use JMS\Serializer\Serializer;
 use SixBySix\CodebaseHq\Client;
+use SixBySix\CodebaseHq\Entity\AbstractResourceEntity;
+use SixBySix\CodebaseHq\Entity\Collection;
+use SixBySix\CodebaseHq\Entity\Entity;
+use SixBySix\CodebaseHq\Entity\Project;
 
 trait GetAll
 {
-    public static function getAll()
+    public static function getAll(array $scope = [])
     {
-        $collection = Client::get("project_groups");
+        /** @var string $resourceName */
+        $resourceName = $this->formatUrl(
+            self::getAllResourceName(),
+        );
 
-        foreach ($collection->{'project-group'} as $entityData) {
-            $entity = static::deserialize($entityData);
-            $collection[] = $entity;
+        foreach ($scope as $param => $value) {
+
         }
-        static::deserialize($collection);
+
+        /** @var Collection $collection */
+        $collection = new Collection(
+            $resourceName,
+            static::class
+        );
+
+        return $collection;
     }
 
     /**
-     * @param $data
+     * @return string
      */
-    abstract public static function deserialize($data);
+    abstract protected static function getAllResourceName();
+
+    abstract protected function formatUrl($url, array $scope);
 }

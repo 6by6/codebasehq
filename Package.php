@@ -21,6 +21,10 @@ class Package
         );
 
         Annotations\AnnotationRegistry::registerFile(
+            $root . '/vendor/jms/serializer/src/JMS/Serializer/Annotation/Discriminator.php'
+        );
+
+        Annotations\AnnotationRegistry::registerFile(
             $root . '/vendor/jms/serializer/src/JMS/Serializer/Annotation/Expose.php'
         );
 
@@ -38,6 +42,18 @@ class Package
 
         Annotations\AnnotationRegistry::registerFile(
             $root . '/vendor/jms/serializer/src/JMS/Serializer/Annotation/SerializedName.php'
+        );
+
+        Annotations\AnnotationRegistry::registerFile(
+            $root . '/vendor/jms/serializer/src/JMS/Serializer/Annotation/VirtualProperty.php'
+        );
+
+        Annotations\AnnotationRegistry::registerFile(
+            $root . '/vendor/jms/serializer/src/JMS/Serializer/Annotation/XmlList.php'
+        );
+
+        Annotations\AnnotationRegistry::registerFile(
+            $root . '/vendor/jms/serializer/src/JMS/Serializer/Annotation/XmlRoot.php'
         );
     }
 }
