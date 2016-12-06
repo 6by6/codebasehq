@@ -17,7 +17,9 @@ use SixBySix\CodebaseHq\Entity\Traits\Serializable;
  */
 class Project implements Entity
 {
-    use GetAll, GetOne, Serializable;
+    use GetAll, GetOne, Serializable {
+        GetAll::formatUrl insteadof GetOne;
+    }
 
     /**
      * @var integer
@@ -131,6 +133,31 @@ class Project implements Entity
      * @var Collection<Discussion>
      */
     protected $discussions;
+
+    /**
+     * @var Collection<Ticket>
+     */
+    protected $tickets;
+
+    /**
+     * @var Collection<Ticket\Category>
+     */
+    protected $ticketCategories;
+
+    /**
+     * @var Collection<Ticket\Priority>
+     */
+    protected $ticketPriorities;
+
+    /**
+     * @var Collection<Ticket\Status>
+     */
+    protected $ticketStatuses;
+
+    /**
+     * @var Collection<Ticket\Types>
+     */
+    protected $ticketTypes;
 
     /**
      * @return int
@@ -351,11 +378,62 @@ class Project implements Entity
             ]);
         }
 
-        return $this->users;
+        return $this->discussions;
     }
 
-    public function getRepositories()
+    public function getTickets()
     {
+        if ($this->tickets === null) {
+            $this->tickets = Ticket::getAll([
+                'project' => $this->getPermalink(),
+            ]);
+        }
+
+        return $this->tickets;
+    }
+
+    public function getTicketCategories()
+    {
+        if ($this->ticketCategories === null) {
+            $this->ticketCategories = Ticket\Category::getAll([
+                'project' => $this->getPermalink(),
+            ]);
+        }
+
+        return $this->ticketCategories;
+    }
+
+    public function getTicketPriorities()
+    {
+        if ($this->ticketPriorities === null) {
+            $this->ticketPriorities = Ticket\Priority::getAll([
+                'project' => $this->getPermalink(),
+            ]);
+        }
+
+        return $this->ticketPriorities;
+    }
+
+    public function getTicketStatuses()
+    {
+        if ($this->ticketStatuses === null) {
+            $this->ticketStatuses = Ticket\Status::getAll([
+                'project' => $this->getPermalink(),
+            ]);
+        }
+
+        return $this->ticketStatuses;
+    }
+
+    public function getTicketTypes()
+    {
+        if ($this->ticketTypes === null) {
+            $this->ticketTypes = Ticket\Type::getAll([
+                'project' => $this->getPermalink(),
+            ]);
+        }
+
+        return $this->ticketTypes;
     }
 
     protected static function getOneNodeName()
@@ -365,7 +443,7 @@ class Project implements Entity
 
     protected static function getOneResourceName()
     {
-        return 'project';
+        return '%id%';
     }
 
     protected static function getAllResourceName()

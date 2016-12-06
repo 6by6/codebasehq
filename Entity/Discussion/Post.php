@@ -12,6 +12,6 @@ class Post implements Entity
 
     public static function getAllResourceName()
     {
-        return '%project%/%discussions/posts';
+        return '%project%/discussions/%discussion%/posts';
     }
 }

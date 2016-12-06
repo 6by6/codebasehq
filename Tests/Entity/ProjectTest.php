@@ -4,13 +4,15 @@ namespace SixBySix\CodebaseHq\Tests\Entity;
 
 use PHPUnit\Framework\TestCase;
 use SixBySix\CodebaseHq\Client as CodebaseHq;
+use SixBySix\CodebaseHq\Entity\Collection;
 use SixBySix\CodebaseHq\Entity\Project;
+use SixBySix\CodebaseHq\Entity\ProjectUser;
 use SixBySix\CodebaseHq\Tests\AbstractTestCase;
 
 class ProjectTest extends AbstractTestCase
 {
     /**
-     * @test
+     * @_test
      */
     public function mainTest()
     {
@@ -18,9 +20,13 @@ class ProjectTest extends AbstractTestCase
         $this->assertContainsOnlyInstancesOf(Project::class, $projects);
     }
 
-    public function countTest()
+    /**
+     * @test
+     */
+    public function getOneTest()
     {
-        $projects = Project::getAll();
+        $project = $this->getProject();
+        $this->assertInstanceOf(Project::class, $project);
     }
 
     /**
@@ -28,7 +34,13 @@ class ProjectTest extends AbstractTestCase
      */
     public function assignedUsers()
     {
-        $project = Project::getAll()->limit(1)->get(0);
-        $this->assertInstanceOf(Project::class, $project);
+        /** @var Project $project */
+        $project = $this->getProject();
+
+        /** @var Collection<ProjectUser> $users */
+        $users = $project->getUsers();
+
+        $this->assertInstanceOf(Collection::class, $users);
+        $this->assertContainsOnlyInstancesOf(ProjectUser::class, $users);
     }
 }

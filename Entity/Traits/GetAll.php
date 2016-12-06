@@ -11,21 +11,22 @@ use SixBySix\CodebaseHq\Entity\Project;
 
 trait GetAll
 {
+    use Get;
+
     public static function getAll(array $scope = [])
     {
         /** @var string $resourceName */
-        $resourceName = $this->formatUrl(
+        $resourceName = static::formatUrl(
             self::getAllResourceName(),
+            $scope
         );
-
-        foreach ($scope as $param => $value) {
-
-        }
 
         /** @var Collection $collection */
         $collection = new Collection(
             $resourceName,
-            static::class
+            static::class,
+            [],
+            $scope
         );
 
         return $collection;
@@ -35,6 +36,4 @@ trait GetAll
      * @return string
      */
     abstract protected static function getAllResourceName();
-
-    abstract protected function formatUrl($url, array $scope);
 }

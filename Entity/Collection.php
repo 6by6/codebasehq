@@ -2,7 +2,9 @@
 
 namespace SixBySix\CodebaseHq\Entity;
 
+use GuzzleHttp\Exception\RequestException;
 use SixBySix\CodebaseHq\Client;
+use SixBySix\CodebaseHq\Entity\Traits\BelongsToProject;
 
 class Collection implements \Iterator
 {
@@ -33,7 +35,10 @@ class Collection implements \Iterator
     /** @var mixed[] */
     protected $baseRequestOpts;
 
-    public function __construct($resource, $entityClass, array $baseRequestOpts = [])
+    /** @var array  */
+    protected $scope;
+
+    public function __construct($resource, $entityClass, array $baseRequestOpts = [], array $scope = [])
     {
         $this->items = [];
         $this->position = 0;
@@ -44,6 +49,7 @@ class Collection implements \Iterator
         $this->limit = null;
         $this->hasFetchedAll = false;
         $this->baseRequestOpts = $baseRequestOpts;
+        $this->scope = $scope;
 
         // load first page results
         $this->getNextPage();
@@ -118,6 +124,11 @@ class Collection implements \Iterator
 
     protected function add(Entity $item)
     {
+        // @todo I don't like this
+        if (isset($this->scope['project']) && method_exists($item, 'setProjectPermalink')) {
+            $item->setProjectPermalink($this->scope['project']);
+        }
+
         $this->items[] = $item;
     }
 
@@ -139,8 +150,18 @@ class Collection implements \Iterator
         /** @var mixed[] $opts */
         $opts = $this->getRequestParams();
 
-        /** @var \SimpleXMLElement $xml */
-        $xml = Client::get($this->resource, $opts);
+        try {
+            /** @var \SimpleXMLElement $xml */
+            $xml = Client::get($this->resource, $opts);
+        } catch (RequestException $e) {
+
+            if ($e->getCode() == 404) {
+                $this->items = [];
+                return false;
+            }
+
+            throw $e;
+        }
 
         if ($xml->children()->count() === 0) {
             $this->hasFetchedAll = true;

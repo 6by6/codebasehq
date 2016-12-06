@@ -10,4 +10,21 @@ use SixBySix\CodebaseHq\Entity\Project;
  */
 trait BelongsToProject
 {
+    protected $projectPermalink;
+
+    /**
+     * @return mixed
+     */
+    public function getProjectPermalink()
+    {
+        return $this->projectPermalink;
+    }
+
+    /**
+     * @param mixed $projectPermalink
+     */
+    public function setProjectPermalink($projectPermalink)
+    {
+        $this->projectPermalink = $projectPermalink;
+    }
 }

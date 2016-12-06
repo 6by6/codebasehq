@@ -18,7 +18,9 @@ use SixBySix\CodebaseHq\Entity\Traits\Serializable;
  */
 class Repository implements Entity
 {
-    use BelongsToProject, GetAll, GetOne, Serializable;
+    use BelongsToProject, GetAll, GetOne, Serializable {
+        GetAll::formatUrl insteadof GetOne;
+    }
 
     /**
      * @var string

@@ -7,17 +7,19 @@ use SixBySix\CodebaseHq\Client;
 
 trait GetOne
 {
+    use Get;
+
     public static function getOne($id)
     {
         /** @var string $resourceName */
-        $resourceName = self::getOneResourceName();
+        $resourceName = static::formatUrl(
+            self::getOneResourceName(),
+            ['id' => $id]
+        );
 
         $one = Client::get($resourceName);
 
-        $entity = static::deserialize($one->asXML());
-        $collection[] = $entity;
-
-        static::deserialize($collection);
+        return static::deserialize($one->asXML());
     }
 
     abstract protected static function getOneNodeName();

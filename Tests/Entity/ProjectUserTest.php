@@ -21,7 +21,9 @@ class ProjectUserTest extends AbstractTestCase
         $users = $project->getUsers();
 
         /** @var Collection $rawUsers $rawUsers */
-        $rawUsers = ProjectUser::getAll($project->getPermalink());
+        $rawUsers = ProjectUser::getAll([
+            'project' => $project->getPermalink(),
+        ]);
 
         $this->assertContainsOnlyInstancesOf(ProjectUser::class, $users);
     }

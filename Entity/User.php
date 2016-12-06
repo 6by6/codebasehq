@@ -13,7 +13,9 @@ use SixBySix\CodebaseHq\Entity\Traits\Serializable;
 
 class User implements Entity
 {
-    use GetAll, GetOne, Serializable;
+    use GetAll, GetOne, Serializable {
+        GetAll::formatUrl insteadof GetOne;
+    }
 
     /**
      * @var integer
