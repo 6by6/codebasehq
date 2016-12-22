@@ -9,12 +9,15 @@ trait GetOne
 {
     use Get;
 
-    public static function getOne($id)
+    public static function getOne($id, $scope = [])
     {
+
+        $scope['id'] = $id;
+
         /** @var string $resourceName */
         $resourceName = static::formatUrl(
             self::getOneResourceName(),
-            ['id' => $id]
+            $scope
         );
 
         $one = Client::get($resourceName);

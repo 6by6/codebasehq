@@ -11,6 +11,10 @@ use SixBySix\CodebaseHq\Entity\Traits\BelongsToProject;
 use SixBySix\CodebaseHq\Entity\Traits\GetAll;
 use SixBySix\CodebaseHq\Entity\Traits\Serializable;
 
+/**
+ * Class Category
+ * @package SixBySix\CodebaseHq\Entity\Ticket
+ */
 class Category implements Entity
 {
     use GetAll, Serializable, BelongsToProject;

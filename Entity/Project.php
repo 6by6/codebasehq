@@ -160,6 +160,11 @@ class Project implements Entity
     protected $ticketTypes;
 
     /**
+     * @var Collection<Milestone>
+     */
+    protected $milestones;
+
+    /**
      * @return int
      */
     public function getProjectId()
@@ -434,6 +439,17 @@ class Project implements Entity
         }
 
         return $this->ticketTypes;
+    }
+
+    public function getMilestones()
+    {
+        if ($this->milestones === null) {
+            $this->milestones = Milestone::getAll([
+                'project' => $this->getPermalink(),
+            ]);
+        }
+
+        return $this->milestones;
     }
 
     protected static function getOneNodeName()

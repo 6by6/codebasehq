@@ -42,49 +42,45 @@ class Type implements Entity
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
-     */
-    public function setId(int $id)
-    {
-        $this->id = $id;
-    }
-
-    /**
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
 
     /**
-     * @param string $name
+     * @param $name
+     * @return $this
      */
-    public function setName(string $name)
+    public function setName($name)
     {
         $this->name = $name;
+        return $this;
     }
 
     /**
      * @return string
      */
-    public function getIcon(): string
+    public function getIcon()
     {
         return $this->icon;
     }
 
     /**
-     * @param string $icon
+     * @param $icon
+     * @return $this
      */
-    public function setIcon(string $icon)
+    public function setIcon($icon)
     {
         $this->icon = $icon;
+        return $this;
     }
 
     protected static function getAllResourceName()

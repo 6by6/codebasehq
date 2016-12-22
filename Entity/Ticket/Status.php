@@ -58,81 +58,81 @@ class Status implements Entity
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
-     */
-    public function setId(int $id)
-    {
-        $this->id = $id;
-    }
-
-    /**
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
 
     /**
-     * @param string $name
+     * @param $name
+     * @return $this
      */
-    public function setName(string $name)
+    public function setName($name)
     {
         $this->name = $name;
+        return $this;
     }
 
     /**
      * @return string
      */
-    public function getBackgroundColour(): string
+    public function getBackgroundColour()
     {
         return $this->backgroundColour;
     }
 
     /**
-     * @param string $backgroundColour
+     * @param $backgroundColour
+     * @return $this
      */
-    public function setBackgroundColour(string $backgroundColour)
+    public function setBackgroundColour($backgroundColour)
     {
         $this->backgroundColour = $backgroundColour;
+        return $this;
     }
 
     /**
      * @return int
      */
-    public function getOrder(): int
+    public function getOrder()
     {
         return $this->order;
     }
 
     /**
-     * @param int $order
+     * @param $order
+     * @return $this
      */
-    public function setOrder(int $order)
+    public function setOrder($order)
     {
         $this->order = $order;
+        return $this;
     }
 
     /**
      * @return boolean
      */
-    public function isTreatAsClosed(): bool
+    public function isTreatAsClosed()
     {
         return $this->treatAsClosed;
     }
 
     /**
-     * @param boolean $treatAsClosed
+     * @param $treatAsClosed
+     * @return $this
      */
-    public function setTreatAsClosed(bool $treatAsClosed)
+    public function setTreatAsClosed($treatAsClosed)
     {
         $this->treatAsClosed = $treatAsClosed;
+        return $this;
     }
 
     protected static function getAllResourceName()

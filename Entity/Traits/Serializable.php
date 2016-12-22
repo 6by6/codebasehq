@@ -2,7 +2,9 @@
 
 namespace SixBySix\CodebaseHq\Entity\Traits;
 
+use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializerBuilder;
+use JMS\Serializer\SerializationContext;
 use JMS\Serializer\DeserializationContext;
 
 trait Serializable
@@ -12,20 +14,23 @@ trait Serializable
      */
     protected static $serializer;
 
-    protected function serialize(array $groups = [])
+    protected function serialize(array $groups = [], $format = 'xml')
     {
-        return $this->getSerializer()->toArray(
+        return $this->getSerializer()->serialize(
             $this,
+            $format,
             SerializationContext::create()->setGroups($groups)
         );
     }
 
-    public static function deserialize($data)
+    public static function deserialize($data, $toClass = null, $format = 'xml')
     {
+        $toClass = ($toClass !== null) ? $toClass : get_called_class();
+
         $entity = static::getSerializer()->deserialize(
             $data,
-            get_called_class(),
-            'xml',
+            $toClass,
+            $format,
             DeserializationContext::create()->setGroups(['get'])
         );
 

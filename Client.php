@@ -104,6 +104,33 @@ class Client
     }
 
     /**
+     * GET method
+     *
+     * @param $resource
+     * @param array $opts
+     * @return \SimpleXMLElement
+     */
+    public static function post($resource, $xml, array $opts = [])
+    {
+        $opts = [
+            'query' => $opts,
+            'body' => (string) $xml,
+        ];
+        $opts = static::prepareRequestOpts($opts);
+
+        /** @var Response $response */
+        $response = self::http()->post($resource, $opts);
+
+        /** @var string $body */
+        $body = (string) $response->getBody();
+
+        /** @var \SimpleXMLElement $xml */
+        $xml = simplexml_load_string($body);
+
+        return $xml;
+    }
+
+    /**
      * Set auth + headers for each request
      *
      * @param array $opts

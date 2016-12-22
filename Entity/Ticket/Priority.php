@@ -58,81 +58,81 @@ class Priority implements Entity
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
-     */
-    public function setId(int $id)
-    {
-        $this->id = $id;
-    }
-
-    /**
      * @return string
      */
-    public function getName(): string
+    public function getName()
     {
         return $this->name;
     }
 
     /**
-     * @param string $name
+     * @param $name
+     * @return $this
      */
-    public function setName(string $name)
+    public function setName($name)
     {
         $this->name = $name;
+        return $this;
     }
 
     /**
      * @return string
      */
-    public function getColour(): string
+    public function getColour()
     {
         return $this->colour;
     }
 
     /**
-     * @param string $colour
+     * @param $colour
+     * @return $this
      */
-    public function setColour(string $colour)
+    public function setColour($colour)
     {
         $this->colour = $colour;
+        return $this;
     }
 
     /**
      * @return int
      */
-    public function getPosition(): int
+    public function getPosition()
     {
         return $this->position;
     }
 
     /**
-     * @param int $position
+     * @param $position
+     * @return $this
      */
-    public function setPosition(int $position)
+    public function setPosition($position)
     {
         $this->position = $position;
+        return $this;
     }
 
     /**
      * @return boolean
      */
-    public function isDefault(): bool
+    public function isDefault()
     {
         return $this->default;
     }
 
     /**
-     * @param boolean $default
+     * @param $default
+     * @return $this
      */
-    public function setDefault(bool $default)
+    public function setDefault($default)
     {
         $this->default = $default;
+        return $this;
     }
 
     protected static function getAllResourceName()

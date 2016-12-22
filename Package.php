@@ -37,6 +37,10 @@ class Package
         );
 
         Annotations\AnnotationRegistry::registerFile(
+            $root . '/vendor/jms/serializer/src/JMS/Serializer/Annotation/Inline.php'
+        );
+
+        Annotations\AnnotationRegistry::registerFile(
             $root . '/vendor/jms/serializer/src/JMS/Serializer/Annotation/PostDeserialize.php'
         );
 
@@ -46,6 +50,10 @@ class Package
 
         Annotations\AnnotationRegistry::registerFile(
             $root . '/vendor/jms/serializer/src/JMS/Serializer/Annotation/VirtualProperty.php'
+        );
+
+        Annotations\AnnotationRegistry::registerFile(
+            $root . '/vendor/jms/serializer/src/JMS/Serializer/Annotation/XmlAttribute.php'
         );
 
         Annotations\AnnotationRegistry::registerFile(
