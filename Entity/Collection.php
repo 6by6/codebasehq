@@ -205,7 +205,7 @@ class Collection implements \Iterator
 
     protected function getRequestParams()
     {
-        $opts = [];
+        $opts = $this->baseRequestOpts;
 
         if ($this->isPaginated()) {
             $opts['page'] = $this->page;

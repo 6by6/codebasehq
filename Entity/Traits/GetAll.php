@@ -13,7 +13,7 @@ trait GetAll
 {
     use Get;
 
-    public static function getAll(array $scope = [])
+    public static function getAll(array $scope = [], array $params = [])
     {
         /** @var string $resourceName */
         $resourceName = static::formatUrl(
@@ -25,7 +25,7 @@ trait GetAll
         $collection = new Collection(
             $resourceName,
             static::class,
-            [],
+            $params,
             $scope
         );
 

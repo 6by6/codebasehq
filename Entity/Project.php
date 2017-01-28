@@ -386,9 +386,16 @@ class Project implements Entity
         return $this->discussions;
     }
 
-    public function getTickets()
+    public function getTickets(Ticket\Search $query = null)
     {
-        if ($this->tickets === null) {
+        if ($query || ($this->tickets === null)) {
+
+            $params = [];
+
+            if ($query !== null) {
+                $params['query'] = (string) $query;
+            }
+
             $this->tickets = Ticket::getAll([
                 'project' => $this->getPermalink(),
             ]);
