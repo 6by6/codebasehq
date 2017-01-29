@@ -56,7 +56,7 @@ class Hook implements Entity
     {
         return $this->id;
     }
-    
+
     /**
      * @return string
      */
