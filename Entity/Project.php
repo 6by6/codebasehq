@@ -80,7 +80,7 @@ class Project implements Entity
      * @var string
      * @Type("string")
      * @Groups({"get", "update", "post"})
-     * @SerializedName("start-page")
+     * @SerializedName("status")
      */
     protected $status;
 
