@@ -21,6 +21,10 @@ class Project implements Entity
         GetAll::formatUrl insteadof GetOne;
     }
 
+    const STATUS_ACTIVE = 'active';
+    const STATUS_ONHOLD = 'on_hold';
+    const STATUS_ARCHIVED = 'archived';
+
     /**
      * @var integer
      * @Type("integer")
@@ -457,6 +461,21 @@ class Project implements Entity
         }
 
         return $this->milestones;
+    }
+
+    public function isActive()
+    {
+        return $this->getStatus() == self::STATUS_ACTIVE;
+    }
+
+    public function isArchived()
+    {
+        return $this->getStatus() == self::STATUS_ARCHIVED;
+    }
+
+    public function isOnHold()
+    {
+        return $this->getStatus() == self::STATUS_ONHOLD;
     }
 
     protected static function getOneNodeName()
