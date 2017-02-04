@@ -19,7 +19,7 @@ use SixBySix\CodebaseHq\Entity\Traits\Serializable;
  * Class Ticket
  * @package SixBySix\CodebaseHq\Entity
  */
-class Ticket implements Entity
+class Ticket implements Entity, IsPaginated
 {
     use BelongsToProject, GetAll, Serializable;
 
