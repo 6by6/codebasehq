@@ -400,9 +400,7 @@ class Project implements Entity
                 $params['query'] = (string) $query;
             }
 
-            $this->tickets = Ticket::getAll([
-                'project' => $this->getPermalink(),
-            ]);
+            $this->tickets = Ticket::getAll(['project' => $this->getPermalink()], $params);
         }
 
         return $this->tickets;
