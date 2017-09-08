@@ -38,6 +38,7 @@ class Search
     const SORT_DEADLINE = 'deadline';
 
     const PROPERTIES = [
+        'id',
         self::SORT_NUMBER,
         self::SORT_TYPE,
         self::SORT_STATUS,
