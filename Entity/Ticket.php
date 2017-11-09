@@ -130,6 +130,16 @@ class Ticket implements Entity, IsPaginated
     protected $notes;
 
     /**
+     * @param int
+     * @return $this
+     */
+    public function setId($id)
+    {
+        $this->ticketId = $id;
+        return $this;
+    }
+    
+    /**
      * @return int
      */
     public function getId()
