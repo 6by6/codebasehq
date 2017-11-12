@@ -67,7 +67,7 @@ class Ticket implements Entity, IsPaginated
      * @var string
      * @Type("string")
      * @Groups({"get"})
-     * @SerializedName("assignee-id")
+     * @SerializedName("assignee")
      */
     protected $assigneeName;
 
