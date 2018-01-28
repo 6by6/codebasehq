@@ -27,7 +27,7 @@ use SixBySix\CodebaseHq\Entity\Traits\Serializable;
  *     "sprint_ended": "SixBySix\CodebaseHq\Entity\Event\SprintEnded"
  * })
  */
-class Event implements Entity
+class Event implements Entity, IsPaginated
 {
     use GetAll, Serializable;
 
