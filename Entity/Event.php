@@ -15,6 +15,7 @@ use SixBySix\CodebaseHq\Entity\Traits\Serializable;
  *     "commit": "SixBySix\CodebaseHq\Entity\Event\Commit",
  *     "deployment": "SixBySix\CodebaseHq\Entity\Event\Deployment",
  *     "merge_request_close": "SixBySix\CodebaseHq\Entity\Event\MergeRequestClose",
+ *     "merge_request_comment": "SixBySix\CodebaseHq\Entity\Event\MergeRequestComment",
  *     "merge_request_creation": "SixBySix\CodebaseHq\Entity\Event\MergeRequestCreation",
  *     "named_tree": "SixBySix\CodebaseHq\Entity\Event\NamedTree",
  *     "project": "SixBySix\CodebaseHq\Entity\Event\Project",
