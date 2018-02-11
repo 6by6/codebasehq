@@ -31,9 +31,9 @@ class Ticket implements Entity, IsPaginated
      */
     protected $ticketId;
 
-        /**
+    /**
      * @var \DateTime
-     * @Annotation\Type("DateTime")
+     * @Type("DateTime")
      * @Groups({"get"})
      * @SerializedName("created-at")
      */
@@ -41,7 +41,7 @@ class Ticket implements Entity, IsPaginated
 
     /**
      * @var \DateTime
-     * @Annotation\Type("DateTime")
+     * @Type("DateTime")
      * @Groups({"get"})
      * @SerializedName("updated-at")
      */
