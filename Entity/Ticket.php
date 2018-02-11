@@ -31,6 +31,22 @@ class Ticket implements Entity, IsPaginated
      */
     protected $ticketId;
 
+        /**
+     * @var \DateTime
+     * @Annotation\Type("DateTime")
+     * @Groups({"get"})
+     * @SerializedName("created-at")
+     */
+    protected $createdAt;
+
+    /**
+     * @var \DateTime
+     * @Annotation\Type("DateTime")
+     * @Groups({"get"})
+     * @SerializedName("updated-at")
+     */
+    protected $updatedAt;
+
     /**
      * @var string
      * @Type("string")
@@ -145,6 +161,42 @@ class Ticket implements Entity, IsPaginated
     public function getId()
     {
         return $this->ticketId;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * @param \DateTime $createdAt
+     * @return Note
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+     * @param \DateTime $updatedAt
+     * @return Note
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
     }
 
     /**
