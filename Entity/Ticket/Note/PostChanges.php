@@ -53,6 +53,14 @@ class PostChanges implements Entity
     protected $priorityId;
 
     /**
+     * @var int
+     * @Annotation\Type("int")
+     * @Groups({"post"})
+     * @SerializedName("status_id")
+     */
+    protected $statusId;
+
+    /**
      * @var string
      * @Annotation\Type("string")
      * @Groups({"post"})
@@ -122,6 +130,22 @@ class PostChanges implements Entity
     public function setPriorityId($priorityId)
     {
         $this->priorityId = $priorityId;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatusId()
+    {
+        return $this->statusId;
+    }
+
+    /**
+     * @param int $statusId
+     */
+    public function setStatusId($statusId)
+    {
+        $this->statusId = $statusId;
     }
 
     /**

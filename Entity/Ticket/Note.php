@@ -315,6 +315,24 @@ class Note implements Entity
     }
 
     /**
+     * @return int
+     */
+    public function getStatusId()
+    {
+        return $this->changes->getStatusId();
+    }
+
+    /**
+     * @param int $statusId
+     * @return Note
+     */
+    public function setStatusId($statusId)
+    {
+        $this->changes->setStatusId($statusId);
+        return $this;
+    }
+
+    /**
      * @return string
      */
     public function getSummary()
